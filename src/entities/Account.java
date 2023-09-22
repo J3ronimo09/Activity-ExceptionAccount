@@ -1,5 +1,7 @@
 package entities;
 
+import exception.BusinessException;
+
 public class Account    {
     private Integer number;
     private String holder;
@@ -49,15 +51,15 @@ public class Account    {
          holder += amount;
     }
     public void withdraw(double amount){
+        validationwithdraw(amount);
         balance -= amount;
     }
-     public String validationwithdraw(double amount){
+     private void validationwithdraw(double amount){
          if (amount > getWithdrawLimit()) {
-             System.out.print("error: the amount  exceeds withdraw limit: ");
+             throw new BusinessException("error: the amount  exceeds withdraw limit: ");
          }
          if(amount > getBalance()){
-             System.out.print("withdraw error: Not enough balance");
+             throw new BusinessException ("withdraw error: Not enough balance");
          }
-         return null;
      }
 }

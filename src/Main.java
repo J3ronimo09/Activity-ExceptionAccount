@@ -1,4 +1,5 @@
 import entities.Account;
+import exception.BusinessException;
 
 import java.util.Scanner;
 
@@ -23,14 +24,15 @@ public class Main {
         System.out.print("Enter  amount for withdraw:");
         double amount = sc.nextDouble();
 
-        // bad Solution
-        String error =account.validationwithdraw(amount);
-        if (error != null) {
-            System.out.printf(error);
-        }
-        else {
+        // Good solution
+
+
+        try {
             account.withdraw(amount);
             System.out.printf("New balance: " + String.format("%.2f%n", account.getBalance()));
+        }
+        catch (BusinessException e){
+            System.out.println(e.getMessage());
         }
         sc.close();
     }
